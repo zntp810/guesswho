@@ -26,6 +26,7 @@ void update_weather() // function to update weather every 1 minute (60 seconds)
         lock.unlock();
         if (current_dbd % 60 == 0) { // if current time is a multiple of 60 seconds
             flower::change_weather(weather_[random_i(0, 3)]); // change weather randomly
+            this_thread::sleep_for(chrono::seconds(2)); // sleep for 2 seconds
         }
     }
     cout << "*";
