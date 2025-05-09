@@ -4,14 +4,23 @@
 
 using namespace std;
 
+void printSeparator(const vector<size_t>& colWidths) {
+    cout << '+';
+    for (size_t w : colWidths) {
+        cout << string(w + 2, '-') << '+';
+    }
+    cout << '\n';
+} // function to print separator line for table (used in drawTable function)
+
 void drawTable(vector<vector<string>> table) // function to draw table to print to console screen
 {
-    if (table.empty()) return;
+    if (table.empty()) return; // If the table is empty (has no data), the function returns immediately
 
     size_t cot = 0;
     for (vector hang : table) {
         cot = max(cot, hang.size());
-    }
+    } /*Iterate through each row (hang) in the table variable to find the largest number of columns (cot). 
+        This ensures that the table can handle rows with different numbers of columns.*/
 
     vector<size_t> colWidths(cot, 0);
     for (auto row : table) {
@@ -19,23 +28,21 @@ void drawTable(vector<vector<string>> table) // function to draw table to print 
             if (i < row.size()) colWidths[i] = max(colWidths[i], row[i].length());
             
         }
-    }
-
-    auto printSeparator = [&]() {
-        cout << '+';
-        for (size_t w : colWidths) cout << string(w + 2, '-') << '+';
-        cout << '\n';
-    };
+    } /*Iterate through each row and column, updating the maximum 
+    width of each column based on the length of the strings in the table.*/
 
     for (auto hang : table) {
-        printSeparator();
+        printSeparator(colWidths);
         for (int i = 0; i < cot; ++i) {
             string cell = (i < hang.size() ? hang[i] : "");
             cout << "| " << left << setw(colWidths[i]) << cell << " ";
         }
         cout << "|\n";
     }
-    printSeparator();
+    printSeparator(colWidths);
+    /*Call printSeparator() to print a separator before each row. 
+    For each column in the row, print the cell value with left alignment 
+    and fixed width (setw(colWidths[i]))*/
 }
 
 void user::addtoFlowerList(flower *x) // add flower to current flower list (currrent_list_flower vector)
@@ -94,8 +101,8 @@ void user::removeoneplant(int index, char x) // remove one plant from current fl
 void user::show_plant_list(char x) // show plant list (flower or tree) to console screen
 {
     
-    vector<vector<string>> that_need_print;
-    vector<string> print;
+    vector<vector<string>> that_need_print; // 2D vector containing table data
+    vector<string> print; // A temporary vector to store each row of the table
     string tmp;
     if (x == 'f') tmp = "Flower"; 
     else tmp = "Tree";
@@ -109,6 +116,11 @@ void user::show_plant_list(char x) // show plant list (flower or tree) to consol
     print.push_back("Status");
     that_need_print.push_back(print);
     print.clear();
+    /*all line from 109 to 118 is Initializing table header
+      it will display like this:
+        +---+----------------+----------------+----------------+-----------------+-----------------+
+        | ON| Flower Name    | Flower Age     | Flower Lifespan| Water Level     | Nutrition       |
+    */
 
     if (x == 'f') {
     for (int i = 0; i < current_list_flower.size(); i++) {
@@ -122,6 +134,13 @@ void user::show_plant_list(char x) // show plant list (flower or tree) to consol
         else print.push_back("not bloom");
         that_need_print.push_back(print);
         print.clear();
+        /*Insert each data of flower to table (that_need_print vector)
+        it will display like this:
+        +---+----------------+----------------+----------------+-----------------+-----------------+
+        |ON | Flower Name    | Flower Age     | Flower Lifespan| Water Level     | Nutrition       |
+        +---+----------------+----------------+----------------+-----------------+-----------------+
+        |1  | EX             | 5              | 10             | 80              | 90              |
+        */
     }
 } else {
     for (int i = 0; i < current_list_tree.size(); i++) {
@@ -136,6 +155,7 @@ void user::show_plant_list(char x) // show plant list (flower or tree) to consol
         else print.push_back("Died");
         that_need_print.push_back(print);
         print.clear();
+        /*Insert each data of tree to table (that_need_print vector), same above*/
     }
 }
     if (x == 'f') cout << "\n##### TABLE OF FLOWER #####";
@@ -161,7 +181,7 @@ void user::show_died_plant_list(char x) // show died plant list (flower or tree)
     print.push_back("Water Level before die");
     print.push_back("Nutrition before die");
     that_need_print.push_back(print);
-    print.clear();
+    print.clear(); // initializing table header
 
     if (x == 'f') {
     for (int i = 0; i < died_flower.size(); i++) {
@@ -172,7 +192,9 @@ void user::show_died_plant_list(char x) // show died plant list (flower or tree)
         print.push_back(to_string(died_flower[i]->get_waterlevel()));
         print.push_back(to_string(died_flower[i]->get_nutrition()));
         that_need_print.push_back(print);
-        print.clear();
+        print.clear(); 
+        /* insert each date of flower that died to table (that_need_print vector), 
+        it has the same format as above */
     }
 } else {
     for (int i = 0; i < died_tree.size(); i++) {
@@ -184,6 +206,8 @@ void user::show_died_plant_list(char x) // show died plant list (flower or tree)
         print.push_back(to_string(died_tree[i]->get_nutrition()));
         that_need_print.push_back(print);
         print.clear();
+        /* insert each date of tree that died to table (that_need_print vector)
+        it has the same format as above */
     }
 }
     if (x == 'f') cout << "\n##### TABLE OF DEAD FLOWER #####\n\n";
