@@ -7,7 +7,7 @@ bool stop_all_th = false; // global variable to stop all threads
 int day_by_day = 0; // global variable to count time, each 60 seconds is a week
 user xxx; 
 
-void increase_time() // function to increase time by 1 second
+void increase_time() // function to increase time by 1 second 
 {
     while (!stop_all_th) { // check if the program is running
         unique_lock<mutex> lock(mtx);
@@ -27,7 +27,7 @@ void update_weather() // function to update weather every 1 minute (60 seconds)
         if (current_dbd % 60 == 0) { // if current time is a multiple of 60 seconds
             flower::change_weather(weather_[random_i(0, 3)]); // change weather randomly
             this_thread::sleep_for(chrono::seconds(2)); // sleep for 2 seconds
-        }
+        } 
     }
     cout << "*";
 }
