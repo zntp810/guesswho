@@ -106,7 +106,7 @@ void show_options() // function to show main options
     vector<string> option; // A temporary vector to store the data of each row
     option.push_back("1"); option.push_back("Add a flower"); options.push_back(option); option.clear();
     option.push_back("2"); option.push_back("Add a tree"); options.push_back(option); option.clear();  
-    option.push_back("3"); option.push_back("Show flower list"); options.push_back(option); option.clear();
+    option.push_back("3"); option.push_back("Show flower list"); options.push_back(option); option.clear(); 
     option.push_back("4"); option.push_back("Show tree list"); options.push_back(option); option.clear();
     option.push_back("5"); option.push_back("Show flower list that died"); options.push_back(option); option.clear();
     option.push_back("6"); option.push_back("Show tree list that died"); options.push_back(option); option.clear();
