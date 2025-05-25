@@ -249,7 +249,7 @@ void tree::add_plant(string name_, int age_, int lifespan_)
         bool check = check_number(input_from_user); 
         if (check) { 
             height = stod(input_from_user);
-            if (height >= 0) break;
+            if (height >= 0) break; 
         }
         cout << "[-] Invalid input. Please enter a valid height: ";
     }

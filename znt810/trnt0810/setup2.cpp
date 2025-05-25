@@ -31,7 +31,7 @@ void drawTable(vector<vector<string>> table)
 
     for (auto hang : table) {
         printSeparator(colWidths);
-        for (int i = 0; i < cot; ++i) {
+        for (int i = 0; i < cot; ++i) { 
             string cell = (i < hang.size() ? hang[i] : "");
             cout << "| " << left << setw(colWidths[i]) << cell << " ";
         }
